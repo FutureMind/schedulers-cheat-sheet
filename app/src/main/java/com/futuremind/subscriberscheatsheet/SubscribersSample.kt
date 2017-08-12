@@ -1,17 +1,17 @@
 package com.futuremind.subscriberscheatsheet
 
-import io.reactivex.Flowable
+import io.reactivex.Completable
 
 class SubscribersSample(val listener: WorkListener) {
 
-    fun doTheWork(){
+    fun doTheWork(): Completable {
 
         val factory = NamedSchedulersFactory()
 
-        Flowable.fromCallable { listener.workStarted(threadName()) }
+        return Completable.fromCallable { listener.workStarted(threadName()) }
                 .subscribeOn(factory.getNamedScheduler("RED"))
                 .observeOn(factory.getNamedScheduler("BLUE"))
-                .subscribe({ listener.workFinished(threadName())})
+                .doOnComplete { listener.workFinished(threadName()) }
 
     }
 
