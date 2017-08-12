@@ -3,6 +3,7 @@ package com.futuremind.subscriberscheatsheet;
 import com.nhaarman.mockito_kotlin.times
 import com.nhaarman.mockito_kotlin.verify
 import io.reactivex.Completable
+import io.reactivex.Flowable
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -19,30 +20,21 @@ class SubscribersSampleTest {
 
     @Before
     fun setUp() {
-//        subscribersSample = SubscribersSample(listener)
-//        val testSubscriber = subscribersSample.makeThings().test()
-//        testSubscriber.awaitTerminalEvent(4, TimeUnit.SECONDS)
+        subscribersSample = SubscribersSample(listener)
+        val testSubscriber = subscribersSample.makeThings().test()
+        testSubscriber.awaitTerminalEvent(4, TimeUnit.SECONDS)
     }
 
     @Test
-    fun `Completable wtf`(){
-        Completable.complete()
-                .andThen{ Completable.complete() }
-                .test()
-                .assertComplete()
-//                .awaitTerminalEvent()
-    }
+    fun `Peach is made on FRUITS scheduler`() = verify(listener, times(1)).makePeach(SubscribersSample.FRUITS)
 
-//    @Test
-//    fun `Peach is made on FRUITS scheduler`() = verify(listener, times(1)).makePeach(SubscribersSample.FRUITS)
-//
-//    @Test
-//    fun `Banana is made on FRUITS scheduler`() = verify(listener, times(1)).makeBanana(SubscribersSample.FRUITS)
-//
-//    @Test
-//    fun `Ant is made on INSECTS scheduler`() = verify(listener, times(1)).makeAnt(SubscribersSample.FRUITS)
-//
-//    @Test
-//    fun `Ferrari is made on CARS scheduler`() = verify(listener, times(1)).makeFerrari(SubscribersSample.CARS)
+    @Test
+    fun `Banana is made on FRUITS scheduler`() = verify(listener, times(1)).makeBanana(SubscribersSample.FRUITS)
+
+    @Test
+    fun `Ant is made on INSECTS scheduler`() = verify(listener, times(1)).makeAnt(SubscribersSample.INSECTS)
+
+    @Test
+    fun `Ferrari is made on CARS scheduler`() = verify(listener, times(1)).makeFerrari(SubscribersSample.CARS)
 
 }
