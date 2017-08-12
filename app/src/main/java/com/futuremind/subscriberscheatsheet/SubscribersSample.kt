@@ -2,30 +2,32 @@ package com.futuremind.subscriberscheatsheet
 
 import io.reactivex.Completable
 
-class SubscribersSample(val listener: WorkListener) {
+class SubscribersSample(val thingsMaker: ThingsMaker) {
 
-    private val factory = NamedSchedulersFactory()
+    private val schedulersFactory = NamedSchedulersFactory()
 
-    companion object{
+    companion object {
         val CARS = "cars scheduler"
         val FRUITS = "fruits scheduler"
-        val OVERRIDDEN = "this one is never used, it's overridden by fruits"
+        val OVERRIDDEN = "this one is never used, it's overridden by fruits scheduler"
     }
 
-    fun doTheWork(): Completable {
+    fun makeThings(): Completable {
 
-        return Completable.fromCallable { listener.makeBanana(threadName()) }
-                .doOnComplete { listener.makePeach(threadName()) }
-                .subscribeOn(factory.scheduler(FRUITS))
-                .subscribeOn(factory.scheduler(OVERRIDDEN))
-                .observeOn(factory.scheduler(CARS))
-                .doOnComplete { listener.makeFerrari(threadName()) }
+        return Completable.fromCallable { thingsMaker.makeBanana(getThread()) }
+                .doOnComplete { thingsMaker.makePeach(getThread()) }
+                .subscribeOn(scheduler(FRUITS))
+                .subscribeOn(scheduler(OVERRIDDEN))
+                .observeOn(scheduler(CARS))
+                .doOnComplete { thingsMaker.makeFerrari(getThread()) }
 
     }
 
-    private fun threadName() = Thread.currentThread().name
+    private fun getThread() = Thread.currentThread().name
 
-    interface WorkListener{
+    private fun scheduler(name: String) = schedulersFactory.getNamedScheduler(name)
+
+    interface ThingsMaker {
         fun makeBanana(threadName: String)
         fun makePeach(threadName: String)
         fun makeFerrari(threadName: String)
