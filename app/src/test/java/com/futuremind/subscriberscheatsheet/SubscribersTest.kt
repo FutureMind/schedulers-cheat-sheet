@@ -13,39 +13,39 @@ import org.mockito.junit.MockitoJUnitRunner
 @RunWith(MockitoJUnitRunner::class)
 class SubscribersTest {
 
-    private val CARS = "cars scheduler"
-    private val FRUITS = "fruits scheduler"
-    private val INSECTS = "insects scheduler"
-    private val OVERRIDDEN = "this one is never used, it's overridden by fruits scheduler"
+    private val MAMMALS = "mammals scheduler"
+    private val REPTILES = "reptiles scheduler"
+    private val FISH = "fish scheduler"
+    private val OVERRIDDEN = "this one is never used, it's overridden by mammals scheduler"
 
     private val schedulersFactory = NamedSchedulersFactory()
-    @Mock lateinit var thingsMaker: ThingsMaker
+    @Mock lateinit var animalsMaker: AnimalsMaker
 
     @Before
     fun setUp() {
-        Completable.fromCallable { thingsMaker.makeBanana(getThread()) }
-                .doOnComplete { thingsMaker.makePeach(getThread()) }
-                .observeOn(scheduler(INSECTS))
-                .andThen(Completable.fromCallable { thingsMaker.makeAnt(getThread()) })
-                .subscribeOn(scheduler(FRUITS))
+        Completable.fromCallable { animalsMaker.makeCat(getThread()) }
+                .doOnComplete { animalsMaker.makeDog(getThread()) }
+                .observeOn(scheduler(FISH))
+                .andThen(Completable.fromCallable { animalsMaker.makeShark(getThread()) })
+                .subscribeOn(scheduler(MAMMALS))
                 .subscribeOn(scheduler(OVERRIDDEN))
-                .observeOn(scheduler(CARS))
-                .doOnComplete { thingsMaker.makeFerrari(getThread()) }
+                .observeOn(scheduler(REPTILES))
+                .doOnComplete { animalsMaker.makeCrocodile(getThread()) }
                 .test()
                 .awaitTerminalEvent()
     }
 
     @Test
-    fun `Peach is made on FRUITS scheduler`() = verify(thingsMaker, times(1)).makePeach(FRUITS)
+    fun `Dog is made on MAMMALS scheduler`() = verify(animalsMaker, times(1)).makeDog(MAMMALS)
 
     @Test
-    fun `Banana is made on FRUITS scheduler`() = verify(thingsMaker, times(1)).makeBanana(FRUITS)
+    fun `Cat is made on MAMMALS scheduler`() = verify(animalsMaker, times(1)).makeCat(MAMMALS)
 
     @Test
-    fun `Ant is made on INSECTS scheduler`() = verify(thingsMaker, times(1)).makeAnt(INSECTS)
+    fun `Shark is made on FISH scheduler`() = verify(animalsMaker, times(1)).makeShark(FISH)
 
     @Test
-    fun `Ferrari is made on CARS scheduler`() = verify(thingsMaker, times(1)).makeFerrari(CARS)
+    fun `Crocodile is made on REPTILES scheduler`() = verify(animalsMaker, times(1)).makeCrocodile(REPTILES)
 
     private fun getThread() = Thread.currentThread().name
 

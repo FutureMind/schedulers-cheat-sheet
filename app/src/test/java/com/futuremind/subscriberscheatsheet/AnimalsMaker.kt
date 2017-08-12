@@ -1,8 +1,8 @@
 package com.futuremind.subscriberscheatsheet
 
-interface ThingsMaker {
-    fun makeBanana(threadName: String)
-    fun makePeach(threadName: String)
-    fun makeAnt(threadName: String)
-    fun makeFerrari(threadName: String)
+interface AnimalsMaker {
+    fun makeCat(threadName: String)
+    fun makeDog(threadName: String)
+    fun makeShark(threadName: String)
+    fun makeCrocodile(threadName: String)
 }
