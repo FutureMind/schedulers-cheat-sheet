@@ -8,8 +8,8 @@ dependencies {
     testCompile 'com.nhaarman:mockito-kotlin-kt1.1:1.5.0'
     testCompile 'junit:junit:4.12'
 
-    compile group: 'com.google.guava', name: 'guava', version: '23.0'
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    compile 'io.reactivex.rxjava2:rxjava:2.1.2'
+    testCompile group: 'com.google.guava', name: 'guava', version: '23.0'
+    testCompile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    testCompile 'io.reactivex.rxjava2:rxjava:2.1.2'
 
 }
