@@ -7,7 +7,7 @@ import java.util.concurrent.Executors
 
 class NamedSchedulersFactory {
 
-    fun getNamedScheduler(name: String) : Scheduler {
+    fun scheduler(name: String) : Scheduler {
         val threadFactory = ThreadFactoryBuilder()
                 .setNameFormat(name)
                 .build()

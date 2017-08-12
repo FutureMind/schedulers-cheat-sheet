@@ -18,19 +18,23 @@ class SubscribersSampleTest {
     @Before
     fun setUp() {
         subscribersSample = SubscribersSample(listener)
+        val testSubscriber = subscribersSample.doTheWork().test()
+        testSubscriber.awaitTerminalEvent()
     }
 
     @Test
-    fun test(){
+    fun `Peach is made on FRUITS scheduler`(){
+        verify(listener, times(1)).makePeach(SubscribersSample.FRUITS)
+    }
 
-        val testSubscriber = subscribersSample.doTheWork().test()
+    @Test
+    fun `Banana is made on FRUITS scheduler`(){
+        verify(listener, times(1)).makeBanana(SubscribersSample.FRUITS)
+    }
 
-        testSubscriber.awaitTerminalEvent()
-
-
-        verify(listener, times(1)).workStarted("RED")
-//        verify(listener, times(1)).workFinished("BLUE")
-
+    @Test
+    fun `Ferrari is made on CARS scheduler`(){
+        verify(listener, times(1)).makeFerrari(SubscribersSample.CARS)
     }
 
 }

@@ -4,22 +4,31 @@ import io.reactivex.Completable
 
 class SubscribersSample(val listener: WorkListener) {
 
+    private val factory = NamedSchedulersFactory()
+
+    companion object{
+        val CARS = "cars scheduler"
+        val FRUITS = "fruits scheduler"
+        val OVERRIDDEN = "this one is never used, it's overridden by fruits"
+    }
+
     fun doTheWork(): Completable {
 
-        val factory = NamedSchedulersFactory()
-
-        return Completable.fromCallable { listener.workStarted(threadName()) }
-                .subscribeOn(factory.getNamedScheduler("RED"))
-                .observeOn(factory.getNamedScheduler("BLUE"))
-                .doOnComplete { listener.workFinished(threadName()) }
+        return Completable.fromCallable { listener.makeBanana(threadName()) }
+                .doOnComplete { listener.makePeach(threadName()) }
+                .subscribeOn(factory.scheduler(FRUITS))
+                .subscribeOn(factory.scheduler(OVERRIDDEN))
+                .observeOn(factory.scheduler(CARS))
+                .doOnComplete { listener.makeFerrari(threadName()) }
 
     }
 
     private fun threadName() = Thread.currentThread().name
 
     interface WorkListener{
-        fun workStarted(threadName: String)
-        fun workFinished(threadName: String)
+        fun makeBanana(threadName: String)
+        fun makePeach(threadName: String)
+        fun makeFerrari(threadName: String)
     }
 
 }
