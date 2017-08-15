@@ -10,9 +10,9 @@ interface AnimalsMaker {
     fun makeShark(threadName: String)
 
     //birds
-    fun makeHawk(threadName: String)
-    fun makeSparrow(threadName: String)
-    fun makeMockingbird(threadName: String)
+    fun makeDuck(threadName: String)
+    fun makeChicken(threadName: String)
+    fun makePenguin(threadName: String)
 
     //reptiles
     fun makeCrocodile(threadName: String)
