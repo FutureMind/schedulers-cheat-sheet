@@ -18,10 +18,10 @@ class SchedulersTest {
     private val REPTILES = "reptiles scheduler"
     private val FISH = "fish scheduler"
     private val BIRDS = "birds scheduler"
-    private val FLOWERS = " flowers scheduler is never used, it's overridden by mammals scheduler"
+    private val FLOWERS = "flowers scheduler is never used, it's overridden by mammals scheduler"
 
     private val schedulersFactory = NamedSchedulersFactory()
-    @Mock lateinit var animalsMaker: AnimalsMaker
+    @Mock private lateinit var animalsMaker: AnimalsMaker
 
     @Before
     fun setUp() {
