@@ -1,4 +1,4 @@
-# Rx Subscribers Cheat Sheet Demo
+# Rx Schedulers Cheat Sheet Demo
 
 This project is the code behind a Future Mind's blog article (link soon).
 
@@ -8,4 +8,4 @@ It's written in Kotlin and uses RxJava 2.
 
 ## Building note
 
-Sometimes Android Studio has problems with building projects with no Android dependencies. You may have to build this projects from command line (`gradle build`) to run the tests.
+Sometimes Android Studio has problems with building pure Kotlin projects (no Android dependencies). You may have to build this project from command line (`gradle build`) to run the tests.
