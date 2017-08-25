@@ -18,7 +18,7 @@ class SchedulersTest {
     private val REPTILES = "reptiles scheduler"
     private val FISH = "fish scheduler"
     private val BIRDS = "birds scheduler"
-    private val FLOWERS = "flowers scheduler is never used, it's overridden by mammals scheduler"
+    private val AMPHIBIANS = "amphibians (never used - overridden by MAMMALS)"
 
     private val schedulersFactory = NamedSchedulersFactory()
     @Mock private lateinit var animalsMaker: AnimalsMaker
@@ -36,7 +36,7 @@ class SchedulersTest {
                 )
                 .andThen(Completable.fromCallable { animalsMaker.makePenguin(getThread()) })
                 .subscribeOn(scheduler(MAMMALS))
-                .subscribeOn(scheduler(FLOWERS))
+                .subscribeOn(scheduler(AMPHIBIANS))
                 .observeOn(scheduler(REPTILES))
                 .doOnComplete { animalsMaker.makeCrocodile(getThread()) }
                 .test()
@@ -65,14 +65,14 @@ class SchedulersTest {
     fun `Crocodile is made on REPTILES scheduler`() = verify(animalsMaker, times(1)).makeCrocodile(REPTILES)
 
     @Test
-    fun `No animals are made on FLOWERS scheduler`() {
-        verify(animalsMaker, never()).makeDog(FLOWERS)
-        verify(animalsMaker, never()).makeCat(FLOWERS)
-        verify(animalsMaker, never()).makeShark(FLOWERS)
-        verify(animalsMaker, never()).makeChicken(FLOWERS)
-        verify(animalsMaker, never()).makeDuck(FLOWERS)
-        verify(animalsMaker, never()).makePenguin(FLOWERS)
-        verify(animalsMaker, never()).makeCrocodile(FLOWERS)
+    fun `No animals are made on AMPHIBIANS scheduler`() {
+        verify(animalsMaker, never()).makeDog(AMPHIBIANS)
+        verify(animalsMaker, never()).makeCat(AMPHIBIANS)
+        verify(animalsMaker, never()).makeShark(AMPHIBIANS)
+        verify(animalsMaker, never()).makeChicken(AMPHIBIANS)
+        verify(animalsMaker, never()).makeDuck(AMPHIBIANS)
+        verify(animalsMaker, never()).makePenguin(AMPHIBIANS)
+        verify(animalsMaker, never()).makeCrocodile(AMPHIBIANS)
     }
 
     private fun getThread() = Thread.currentThread().name
