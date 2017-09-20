@@ -6,6 +6,12 @@ The [SchedulersTest.kt](/app/src/test/java/com/futuremind/subscriberscheatsheet/
 
 It's written in Kotlin and uses RxJava 2.
 
+## The cheat sheet
+
+You're not in the mood of running any tests and would rather just grab a pretty, colorful PDF, frame it and put over the fireplace?
+
+[Say no more.](/schedulers-cheat-sheet.pdf)
+
 ## Building note
 
 Sometimes Android Studio has problems with building pure Kotlin projects (no Android dependencies). You may have to build this project from command line (`gradle build`) to run the tests.
