@@ -1,6 +1,6 @@
 # Rx Schedulers Cheat Sheet Demo
 
-This project is the code behind a Future Mind's blog article (link soon).
+This project is the code behind a Future Mind's [blog article](https://www.futuremind.com/blog/rxjava-schedulers-cheat-sheet).
 
 The [SchedulersTest.kt](/app/src/test/java/com/futuremind/subscriberscheatsheet/SchedulersTest.kt) class is the one to look for. It contains a reactive chain and a set of tests to verify that specific operations (represented by *animals*) are made on appropriate schedulers (represented by *animal classes*).
 
